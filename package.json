@@ -12,6 +12,10 @@
     "vue",
     "flex"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:helloskynet/flex.git"
+  },
   "author": "",
   "license": "MIT",
   "devDependencies": {
