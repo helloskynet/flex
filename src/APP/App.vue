@@ -19,104 +19,19 @@
       <a-button @click='changeNum(-1)'>减少item</a-button>
       容器的属性<br>
       <br>
-      主轴方向： flex-direction:
-      row(default):
-      <a-switch
-        v-model="flexDirection.row"
-        @change="onChange('flexDirection','row')"
-      />
-      <br>
-      row-reverse:
-      <a-switch
-        v-model="flexDirection.rowReverse"
-        @change="onChange('flexDirection','rowReverse')"
-      />
-      column:
-      <a-switch
-        v-model="flexDirection.column"
-        @change="onChange('flexDirection','column')"
-      />
-      column-reverse:
-      <a-switch
-        v-model="flexDirection.columnReverse"
-        @change="onChange('flexDirection','columnReverse')"
-      />
-      <br>
-      <br>
-      轴线换行：
-      flex-wrap: nowrap(default):
-      <a-switch
-        v-model="flexWrap.nowrap"
-        @change="onChange('flexWrap','nowrap')"
-      />
-      wrap
-      <a-switch
-        v-model="flexWrap.wrap"
-        @change="onChange('flexWrap','wrap')"
-      />
-      wrap-reverse
-      <a-switch
-        v-model="flexWrap.wrapReverse"
-        @change="onChange('flexWrap','wrapReverse')"
-      />
-      <br>
-      "flex-flow": "",
+      <div class="control-item">
+        <ControlItem
+          v-for="item in flex"
+          :flex=item
+          :key=item.value
+          @ss-change='liu'
+        />
+      </div>
 
-      "justify-content": flex-start(default):
-      <a-switch
-        v-model="justifyContent.flexStart"
-        @change="onChange('justifyContent','flexStart')"
-      />
-      flex-end：
-      <a-switch
-        v-model="justifyContent.flexEnd"
-        @change="onChange('justifyContent','flexEnd')"
-      />
-      center：
-      <a-switch
-        v-model="justifyContent.center"
-        @change="onChange('justifyContent','center')"
-      />
-      space-between：
-      <a-switch
-        v-model="justifyContent.spaceBetween"
-        @change="onChange('justifyContent','spaceBetween')"
-      />
-      space-around：
-      <a-switch
-        v-model="justifyContent.spaceAround"
-        @change="onChange('justifyContent','spaceAround')"
-      />
-      <br>
-      交叉轴对齐方式：
-      "align-items":
-      flex-start
-      <a-switch
-        v-model="alignItems.flexStart"
-        @change="onChange('alignItems','flexStart')"
-      />
-      flex-end
-      <a-switch
-        v-model="alignItems.flexEnd"
-        @change="onChange('alignItems','flexEnd')"
-      />
-      center
-      <a-switch
-        v-model="alignItems.center"
-        @change="onChange('alignItems','center')"
-      />
-      baseline
-      <a-switch
-        v-model="alignItems.baseline"
-        @change="onChange('alignItems','baseline')"
-      />
-      stretch
-      <a-switch
-        v-model="alignItems.stretch"
-        @change="onChange('alignItems','stretch')"
-      />
       <br>
       "align-content": ""
+      <br><br>
+
     </div>
     <div class="code">
       container:
@@ -127,109 +42,281 @@
   </div>
 </template>
 <script>
+import ControlItem from "./ControlItem.vue";
+
 export default {
+  components: {
+    ControlItem
+  },
   data() {
     return {
-      numBox: 6,
+      flex: {
+        "flex-direction": {
+          name: "主轴方向", // 名字
+          value: "flex-direction",
+          propertyValues: {
+            row: {
+              value: "row", // 属性值
+              isDefault: true, // 是否为默认值
+              isChecked: true, // 当前是否选中
+              key: 1
+            },
+            "row-reverse": {
+              value: "row-reverse",
+              isDefault: false,
+              isChecked: false,
+              key: 2
+            },
+            column: {
+              value: "column",
+              isDefault: false,
+              isChecked: false,
+              key: 3
+            },
+            "column-reverse": {
+              value: "column-reverse",
+              isDefault: false,
+              isChecked: false,
+              key: 4
+            }
+          }
+        },
+        "flex-wrap": {
+          name: "轴线换行方式",
+          value: "flex-wrap",
+          propertyValues: {
+            nowrap: {
+              value: "nowrap", // 属性值
+              isDefault: true, // 是否为默认值
+              isChecked: true, // 当前是否选中
+              key: 1
+            },
+            wrap: {
+              value: "wrap",
+              isDefault: false,
+              isChecked: false,
+              key: 2
+            },
+            "wrap-reverse": {
+              value: "wrap-reverse",
+              isDefault: false,
+              isChecked: false,
+              key: 3
+            }
+          }
+        },
+        "justify-content": {
+          name: "主轴对齐方式",
+          value: "justify-content",
+          propertyValues: {
+            "flex-start": {
+              value: "flex-start",
+              isDefault: true,
+              isChecked: true,
+              key: 1
+            },
+            "flex-end": {
+              value: "flex-end",
+              isDefault: false,
+              isChecked: false,
+              key: 2
+            },
+            center: {
+              value: "center",
+              isDefault: false,
+              isChecked: false,
+              key: 3
+            },
+            "space-between": {
+              value: "space-between",
+              isDefault: false,
+              isChecked: false,
+              key: 4
+            },
+            "space-around": {
+              value: "space-around",
+              isDefault: false,
+              isChecked: false,
+              key: 5
+            }
+          }
+        },
+        "align-items": {
+          name: "交叉轴对齐方式",
+          value: "align-items",
+          propertyValues: {
+            "flex-start": {
+              value: "flex-start",
+              isDefault: false,
+              isChecked: false,
+              key: 1
+            },
+            "flex-end": {
+              value: "flex-end",
+              isDefault: false,
+              isChecked: false,
+              key: 2
+            },
+            center: {
+              value: "center",
+              isDefault: false,
+              isChecked: false,
+              key: 3
+            },
+            baseline: {
+              value: "baseline",
+              isDefault: false,
+              isChecked: false,
+              key: 4
+            },
+            stretch: {
+              value: "stretch",
+              isDefault: true,
+              isChecked: true,
+              key: 5
+            }
+          }
+        },
+        "align-content": {
+          name: "多根轴线对齐方式",
+          value: "align-content",
+          propertyValues: {
+            "flex-start": {
+              value: "flex-start",
+              isDefault: false,
+              isChecked: false,
+              key: 1
+            },
+            "flex-end": {
+              value: "flex-end",
+              isDefault: false,
+              isChecked: false,
+              key: 2
+            },
+            center: {
+              value: "center",
+              isDefault: false,
+              isChecked: false,
+              key: 3
+            },
+            "space-between": {
+              value: "space-between",
+              isDefault: false,
+              isChecked: false,
+              key: 4
+            },
+            "space-around": {
+              value: "space-around",
+              isDefault: false,
+              isChecked: false,
+              key: 5
+            },
+            "stretch": {
+              value: "stretch",
+              isDefault: true,
+              isChecked: true,
+              key: 6
+            }
+          }
+        }
+      },
+      numBox: 12,
       mainStyleObj: {
-        flexDirection: "row",
-        flexWrap: "nowrap",
+        "flex-direction": "row",
+        "flex-wrap": "nowrap",
         flexFlow: "", // flex-direction 和 flex-wrap 简写
-        justifyContent: "flex-start",
-        alignItems: "stretch",
+        "justify-content": "flex-start",
+        "align-items": "stretch",
         "align-content": ""
       },
-      itemObj: {},
-      flexDirection: {
-        row: true,
-        rowReverse: false,
-        column: false,
-        columnReverse: false
-      },
-      flexWrap: {
-        nowrap: true,
-        wrap: false,
-        wrapReverse: false
-      },
-      justifyContent: {
-        flexStart: true,
-        flexEnd: false,
-        center: false,
-        spaceBetween: false,
-        spaceAround: false
-      },
-      alignItems: {
-        flexStart: false,
-        flexEnd: false,
-        center: false,
-        baseline: false,
-        stretch: true
-      },
-      directionsMap: new Map([
-        ["row", "row"],
-        ["rowReverse", "row-reverse"],
-        ["column", "column"],
-        ["columnReverse", "column-reverse"],
-        ["nowrap", "nowrap"], // flex-wrap
-        ["wrap", "wrap"],
-        ["wrapReverse", "wrap-reverse"],
-        // justifyContent
-        ["flexStart", "flex-start"],
-        ["flexEnd", "flex-end"],
-        ["center", "center"],
-        ["spaceBetween", "space-between"],
-        ["spaceAround", "space-around"],
-        // align-items
-        ["baseline", "baseline"],
-        ["stretch", "stretch"]
-      ])
+      itemObj: {}
     };
   },
   methods: {
-    // 修改style
-    onChange(first, second) {
-      const flag = this[first][second];
-      let style = "";
-      if (flag) {
-        for (const obj in this[first]) {
-          this[first][obj] = false;
+    /**
+     * @description 保证只有一个开关处于开启状态
+     * @param {boolean} value 开关值
+     * @param {string} optionValue 属性值
+     * @param {string} optionName 属性名字
+     */
+    liu(value, optionValue, optionName) {
+      const temp = this.flex[optionName];
+      if (value) {
+        for (const obj in temp.propertyValues) {
+          temp.propertyValues[obj].isChecked = false;
         }
-        this[first][second] = true;
-        style = second;
+        temp.propertyValues[optionValue].isChecked = true;
       } else {
-        switch (first) {
-          case "flexWrap": {
-            this[first].nowrap = true;
-            style = "nowrap";
-            break;
-          }
-          case "flexDirection": {
-            this[first].row = true;
-            style = "row";
-            break;
-          }
-          case "justifyContent": {
-            this[first].flexStart = true;
-            style = "flexStart";
-            break;
-          }
-          case "alignItems": {
-            this[first].stretch = true;
-            style = "stretch";
-            break;
-          }
-          default: {
-            break;
+        temp.propertyValues[optionValue].isChecked = false;
+        for (const obj in temp.propertyValues) {
+          if (temp.propertyValues[obj].isDefault) {
+            temp.propertyValues[obj].isChecked = true;
           }
         }
       }
-      this.mainStyleObj[first] = this.directionsMap.get(style);
     },
     // item 数量
     changeNum(num) {
       this.numBox += num;
       this.numBox = this.numBox < 1 ? 1 : this.numBox;
       this.numBox = this.numBox > 24 ? 24 : this.numBox;
+    },
+    // 属性变化重新生成 styleObj
+    makeStyleObj(newValue) {
+      const obj = {};
+      obj[newValue.value] = Object.values(newValue.propertyValues).filter(
+        e => e.isChecked
+      )[0].value;
+      Object.assign(this.mainStyleObj, obj);
+    }
+  },
+  computed: {
+    flexDirection: function() {
+      return this.flex["flex-direction"];
+    },
+    flexWrap: function() {
+      return this.flex["flex-wrap"];
+    },
+    justifyContent: function() {
+      return this.flex["justify-content"];
+    },
+    alignItems: function() {
+      return this.flex["align-items"];
+    },
+    alignContent: function() {
+      return this.flex["align-content"];
+    }
+  },
+  watch: {
+    flexDirection: {
+      handler(newQ, oldQ) {
+        this.makeStyleObj(newQ);
+      },
+      deep: true
+    },
+    flexWrap: {
+      handler(newQ, oldQ) {
+        this.makeStyleObj(newQ);
+      },
+      deep: true
+    },
+    justifyContent: {
+      handler(newQ, oldQ) {
+        this.makeStyleObj(newQ);
+      },
+      deep: true
+    },
+    alignItems: {
+      handler(newQ, oldQ) {
+        this.makeStyleObj(newQ);
+      },
+      deep: true
+    },
+    alignContent: {
+      handler(newQ, oldQ) {
+        this.makeStyleObj(newQ);
+      },
+      deep: true
     }
   }
 };
@@ -238,6 +325,7 @@ export default {
 .main {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   .container {
     display: flex;
     width: 50%;
@@ -255,6 +343,12 @@ export default {
   }
   .code {
     background-color: #ff9;
+  }
+  .control {
+    .control-item {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 }
 </style>
