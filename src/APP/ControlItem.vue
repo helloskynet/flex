@@ -1,10 +1,9 @@
 <template>
   <div class="switch-list-main">
-    <span>
+    <div class="switch-list-title">
       {{flex.value}}: <br>
-      内容：<br>
       {{flex.name}}
-    </span>
+    </div>
     <div class='switch-list-content'>
       <div
         class="switch-list-item"
@@ -52,6 +51,9 @@ export default {
   padding: 5px;
   width: 50%;
   justify-content: space-around;
+  >div{
+    width: 50%;
+  }
   .switch-list-content {
     margin-left: 10px;
     .switch-list-item {

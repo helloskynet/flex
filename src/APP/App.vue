@@ -1,40 +1,26 @@
 <template>
   <div class="main">
-    <div
-      :style=mainStyleObj
-      class="container"
-    >
-      <div
-        class="item"
-        v-for="item in numBox"
-        :style="itemObj"
-        :key="item"
-      >
-        {{item}}
+    <div :style="mainStyleObj" class="container">
+      <div class="item" v-for="item in numBox" :style="itemObj" :key="item">{{item}}
+
+        <span v-show="item==50">hhhhhhh <br><br><br>   hhhhhhhhhhh</span>
       </div>
     </div>
-    <div class="control">
-      控制区：<br>
-      <a-button @click='changeNum(1)'>增加item</a-button>
-      <a-button @click='changeNum(-1)'>减少item</a-button>
-      容器的属性<br>
+    <div class="control">控制区：
+      <br>
+      <a-button @click="changeNum(1)">增加item</a-button>
+      <a-button @click="changeNum(-1)">减少item</a-button>容器的属性
+      <br>
       <br>
       <div class="control-item">
-        <ControlItem
-          v-for="item in flex"
-          :flex=item
-          :key=item.value
-          @ss-change='liu'
-        />
+        <ControlItem v-for="item in flex" :flex="item" :key="item.value" @ss-change="liu"/>
       </div>
 
+      <br>"align-content": ""
       <br>
-      "align-content": ""
-      <br><br>
-
+      <br>
     </div>
-    <div class="code">
-      container:
+    <div class="code">container:
       <pre>
 {{mainStyleObj}}
       </pre>
@@ -82,7 +68,7 @@ export default {
           }
         },
         "flex-wrap": {
-          name: "轴线换行方式",
+          name: "一条轴线排不下时轴线换行方式",
           value: "flex-wrap",
           propertyValues: {
             nowrap: {
@@ -106,7 +92,7 @@ export default {
           }
         },
         "justify-content": {
-          name: "主轴对齐方式",
+          name: "主轴对齐方式----- space-evenly '(有兼容性问题chrome60+)",
           value: "justify-content",
           propertyValues: {
             "flex-start": {
@@ -138,11 +124,17 @@ export default {
               isDefault: false,
               isChecked: false,
               key: 5
+            },
+            "space-evenly": {
+              value: "space-evenly",
+              isDefault: false,
+              isChecked: false,
+              key: 6
             }
           }
         },
         "align-items": {
-          name: "交叉轴对齐方式",
+          name: "交叉轴对齐方式,",
           value: "align-items",
           propertyValues: {
             "flex-start": {
@@ -178,7 +170,8 @@ export default {
           }
         },
         "align-content": {
-          name: "多根轴线对齐方式",
+          name:
+            "多根轴线对齐方式,只有一根轴线（即flex-wrap:nowrap）时，该属性不起作用。",
           value: "align-content",
           propertyValues: {
             "flex-start": {
@@ -211,11 +204,17 @@ export default {
               isChecked: false,
               key: 5
             },
-            "stretch": {
+            stretch: {
               value: "stretch",
               isDefault: true,
               isChecked: true,
               key: 6
+            },
+            "space-evenly": {
+              value: "space-evenly",
+              isDefault: false,
+              isChecked: false,
+              key: 7
             }
           }
         }
@@ -259,7 +258,7 @@ export default {
     changeNum(num) {
       this.numBox += num;
       this.numBox = this.numBox < 1 ? 1 : this.numBox;
-      this.numBox = this.numBox > 24 ? 24 : this.numBox;
+      this.numBox = this.numBox > 58 ? 58 : this.numBox;
     },
     // 属性变化重新生成 styleObj
     makeStyleObj(newValue) {
@@ -331,10 +330,13 @@ export default {
     width: 50%;
     height: 300px;
     background: blue;
+    :first-child {
+      height: 150px;
+    }
     .item {
       background-color: #a5f5a5;
       border: 1px solid red;
-      margin: 10px;
+      // padding: 10px;
     }
   }
   .code,
