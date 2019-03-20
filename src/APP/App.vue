@@ -1,24 +1,30 @@
 <template>
   <div class="main">
-    <div :style="mainStyleObj" class="container">
-      <div class="item" v-for="item in numBox" :style="itemObj" :key="item">{{item}}
-
-        <span v-show="item==50">hhhhhhh <br><br><br>   hhhhhhhhhhh</span>
+    <div
+      :style="mainStyleObj"
+      class="container"
+    >
+      <div
+        class="item"
+        v-for="item in numBox"
+        :style="itemObj"
+        :key="item"
+      >{{item}}
+        <span v-show="item==50">hhhhhhh <br><br><br> hhhhhhhhhhh</span>
       </div>
     </div>
     <div class="control">控制区：
       <br>
       <a-button @click="changeNum(1)">增加item</a-button>
       <a-button @click="changeNum(-1)">减少item</a-button>容器的属性
-      <br>
-      <br>
       <div class="control-item">
-        <ControlItem v-for="item in flex" :flex="item" :key="item.value" @ss-change="liu"/>
+        <ControlItem
+          v-for="item in flex"
+          :flex="item"
+          :key="item.value"
+          @flex-change="flexChange"
+        />
       </div>
-
-      <br>"align-content": ""
-      <br>
-      <br>
     </div>
     <div class="code">container:
       <pre>
@@ -226,7 +232,7 @@ export default {
         flexFlow: "", // flex-direction 和 flex-wrap 简写
         "justify-content": "flex-start",
         "align-items": "stretch",
-        "align-content": ""
+        "align-content": "stretch"
       },
       itemObj: {}
     };
@@ -238,84 +244,31 @@ export default {
      * @param {string} optionValue 属性值
      * @param {string} optionName 属性名字
      */
-    liu(value, optionValue, optionName) {
-      const temp = this.flex[optionName];
+    flexChange(value, optionValue, optionName) {
+      let oValue = optionValue;
+      const tempPropertyValues = this.flex[optionName].propertyValues;
       if (value) {
-        for (const obj in temp.propertyValues) {
-          temp.propertyValues[obj].isChecked = false;
+        for (const obj in tempPropertyValues) {
+          tempPropertyValues[obj].isChecked = false;
         }
-        temp.propertyValues[optionValue].isChecked = true;
+        tempPropertyValues[optionValue].isChecked = true;
       } else {
-        temp.propertyValues[optionValue].isChecked = false;
-        for (const obj in temp.propertyValues) {
-          if (temp.propertyValues[obj].isDefault) {
-            temp.propertyValues[obj].isChecked = true;
+        tempPropertyValues[optionValue].isChecked = false;
+        for (const obj in tempPropertyValues) {
+          if (tempPropertyValues[obj].isDefault) {
+            tempPropertyValues[obj].isChecked = true;
+            oValue = tempPropertyValues[obj].value;
           }
         }
       }
+      // 更新属性
+      this.mainStyleObj[optionName] = oValue;
     },
     // item 数量
     changeNum(num) {
       this.numBox += num;
       this.numBox = this.numBox < 1 ? 1 : this.numBox;
       this.numBox = this.numBox > 58 ? 58 : this.numBox;
-    },
-    // 属性变化重新生成 styleObj
-    makeStyleObj(newValue) {
-      const obj = {};
-      obj[newValue.value] = Object.values(newValue.propertyValues).filter(
-        e => e.isChecked
-      )[0].value;
-      Object.assign(this.mainStyleObj, obj);
-    }
-  },
-  computed: {
-    flexDirection: function() {
-      return this.flex["flex-direction"];
-    },
-    flexWrap: function() {
-      return this.flex["flex-wrap"];
-    },
-    justifyContent: function() {
-      return this.flex["justify-content"];
-    },
-    alignItems: function() {
-      return this.flex["align-items"];
-    },
-    alignContent: function() {
-      return this.flex["align-content"];
-    }
-  },
-  watch: {
-    flexDirection: {
-      handler(newQ, oldQ) {
-        this.makeStyleObj(newQ);
-      },
-      deep: true
-    },
-    flexWrap: {
-      handler(newQ, oldQ) {
-        this.makeStyleObj(newQ);
-      },
-      deep: true
-    },
-    justifyContent: {
-      handler(newQ, oldQ) {
-        this.makeStyleObj(newQ);
-      },
-      deep: true
-    },
-    alignItems: {
-      handler(newQ, oldQ) {
-        this.makeStyleObj(newQ);
-      },
-      deep: true
-    },
-    alignContent: {
-      handler(newQ, oldQ) {
-        this.makeStyleObj(newQ);
-      },
-      deep: true
     }
   }
 };
@@ -330,9 +283,6 @@ export default {
     width: 50%;
     height: 300px;
     background: blue;
-    :first-child {
-      height: 150px;
-    }
     .item {
       background-color: #a5f5a5;
       border: 1px solid red;
@@ -350,6 +300,7 @@ export default {
     .control-item {
       display: flex;
       flex-wrap: wrap;
+      background-color: #ffff6a;
     }
   }
 }

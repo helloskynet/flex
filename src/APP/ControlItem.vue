@@ -40,7 +40,7 @@ export default {
      * @param {*} optionName 属性名
      */
     onChange(value, optionName) {
-      this.$emit("ss-change", value, optionName, this.flex.value);
+      this.$emit("flex-change", value, optionName, this.flex.value);
     }
   }
 };
@@ -51,7 +51,7 @@ export default {
   padding: 5px;
   width: 50%;
   justify-content: space-around;
-  >div{
+  > div {
     width: 50%;
   }
   .switch-list-content {
