@@ -21,17 +21,18 @@
           :checked=item.isChecked
           @my-change='onChange'
         />
-        option
       </div>
     </div>
   </div>
 </template>
 <script>
-import optionsSwitch from "./Switch.vue";
+import OptionsSwitch from "@/app/Switch.vue";
+
 
 export default {
   components: {
-    optionsSwitch
+  
+    OptionsSwitch
   },
   props: ["flex"],
   methods: {
