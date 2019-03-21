@@ -36,7 +36,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html', // 输出
-      template: './src/index.html', // 模板位置 
+      template: './index.html', // 模板位置 
     }),
     new VueLoaderPlugin(),
   ]

@@ -21,6 +21,7 @@
           :checked=item.isChecked
           @my-change='onChange'
         />
+        option
       </div>
     </div>
   </div>
