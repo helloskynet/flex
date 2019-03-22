@@ -181,4 +181,33 @@ export default {
       }
     }
   },
+  flexItem: {
+    "order": {
+      name: "项目的排列顺序。数值越小越靠前默认为0,整数",
+      value: "order",
+      isInput: true, // 是否为输入框
+      propertyValues: {
+        defaultValue: 0, // 默认值
+        precision: 0, // 数据精度 即小数位数
+      }
+    },
+    "flex-grow": {
+      name: "项目的放大比例。默认为0,即存在剩余空间也不放大",
+      value: "flex-grow",
+      isInput: true, // 是否为输入框
+      propertyValues: {
+        defaultValue: 0, // 默认值
+        precision: 2, // 数据精度 即小数位数
+      },
+    },
+    "flex-shrink": {
+      name: "项目的缩小比例。默认为1,空间不足将会缩小--负值无效",
+      value: "flex-shrink",
+      isInput: true, // 是否为输入框
+      propertyValues: {
+        defaultValue: 1, // 默认值
+        precision: 2, // 数据精度 即小数位数
+      },
+    },
+  }
 }

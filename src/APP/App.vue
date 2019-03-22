@@ -25,6 +25,19 @@
           @flex-change="flexChange"
         />
       </div>
+      <br>
+    </div>
+
+    <div>
+      项目属性：
+      <div class="control-item">
+        <ControlItem
+          v-for="item in flexItem"
+          :flex="item"
+          :key="item.value"
+          @flex-change="flexChange"
+        />
+      </div>
     </div>
     <div class="code">container:
       <pre>
@@ -44,16 +57,24 @@ export default {
   data() {
     return {
       flex: { ...flexData.flex },
+      flexItem: { ...flexData.flexItem },
       numBox: 12,
       mainStyleObj: {
         "flex-direction": "row",
         "flex-wrap": "nowrap",
-        flexFlow: "", // flex-direction 和 flex-wrap 简写
+        flexFlow: "flex-direction 和 flex-wrap 简写", // flex-direction 和 flex-wrap 简写
         "justify-content": "flex-start",
         "align-items": "stretch",
         "align-content": "stretch"
       },
-      itemObj: {}
+      itemObj: {
+        order: "2", //项目排列顺序 越小越靠前
+        "flex-grow": "0", // 项目放大比例，默认为0 即如果存在剩余空间也不放大
+        "flex-shrink": "1", // 项目缩小比例如果空间不足，该项目将会缩小
+        "flex-basis": "", // 分配多余空间之前，项目占据的主轴空间,
+        flex: "", // flex-grou flex-shrink flex-basis 简写
+        "align-self": 2 // 单个项目的对齐方式 可覆盖 align-item
+      }
     };
   },
   methods: {
@@ -85,7 +106,6 @@ export default {
     },
     // item 数量
     changeNum(num) {
-      console.table(this.flex);
       this.numBox += num;
       this.numBox = this.numBox < 1 ? 1 : this.numBox;
       this.numBox = this.numBox > 58 ? 58 : this.numBox;
