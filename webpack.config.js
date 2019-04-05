@@ -32,8 +32,12 @@ module.exports = {
     }, {
       test: /\.vue$/,
       use: ['vue-loader'],
+    },{
+      test:/\.(eot|svg|ttf|woff|woff2)$/,
+      use:['file-loader'],
     }]
-  },
+  },/*   test: /\.(eot|svg|ttf|woff|woff2)$/,
+  loader: 'file-loader' */
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html', // 输出

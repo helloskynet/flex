@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import App from './app/App.vue';
-import "ant-design-vue/dist/antd.css";
-import Antd from "ant-design-vue";
-Vue.use(Antd);
+import App from './element/main.vue';
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from "element-ui";
 
+Vue.use(ElementUI);
 
 new Vue({
   el: '#J_App',

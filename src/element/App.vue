@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import ControlItem from "@/app/ControlItem.vue";
+import ControlItem from "@/element/ControlItem.vue";
 import flexData from "@/data/flex.js";
 
 export default {
@@ -114,6 +114,11 @@ export default {
 };
 </script>
 <style lang='scss'>
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 .main {
   display: flex;
   flex-wrap: wrap;

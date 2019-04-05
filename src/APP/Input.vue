@@ -1,5 +1,5 @@
 <template>
-  <a-input-number
+  <el-input-number
     :defaultValue=defaultValue
     :min="-1000"
     :max="1000"
