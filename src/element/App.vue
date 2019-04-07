@@ -13,6 +13,11 @@
         <span v-show="item==50">hhhhhhh <br><br><br> hhhhhhhhhhh</span>
       </div>
     </div>
+    <div class="code">container:
+      <pre>
+{{mainStyleObj}}
+      </pre>
+    </div>
     <div class="control">控制区：
       <br>
       <el-button @click="changeNum(1)">增加item</el-button>
@@ -26,23 +31,6 @@
         />
       </div>
       <br>
-    </div>
-
-    <div>
-      项目属性：
-      <div class="control-item">
-        <ControlItem
-          v-for="item in flexItem"
-          :flex="item"
-          :key="item.value"
-          @flex-change="flexChange"
-        />
-      </div>
-    </div>
-    <div class="code">container:
-      <pre>
-{{mainStyleObj}}
-      </pre>
     </div>
   </div>
 </template>
@@ -122,7 +110,6 @@ body {
 .main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
   .container {
     display: flex;
     width: 50%;
@@ -131,11 +118,9 @@ body {
     .item {
       background-color: #ffd666;
       border: 1px solid #ff85c0;
-      // padding: 10px;
     }
   }
-  .code,
-  .control {
+  .code {
     width: 50%;
   }
   .code {
